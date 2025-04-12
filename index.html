@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cloud Cost Optimizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4f46e5;
+            --accent: #10b981;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .hero {
+            background: url('image.png') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 7rem 2rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .hero p {
+            opacity: 0.9;
+            font-size: 1.25rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -4rem auto 2rem;
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .upload-box {
+            border: 2px dashed var(--accent);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .upload-btn:hover {
+            background: #4338ca;
+        }
+
+        .sample-format {
+            background: #334155;
+            padding: 1rem;
+            font-family: monospace;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .alert {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .error {
+            background-color: #7f1d1d;
+            color: #fee2e2;
+        }
+
+        .success {
+            background-color: #064e3b;
+            color: #d1fae5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.875rem;
+            background: #1e293b;
+            color: #94a3b8;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .upload-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-cloud"></i> Cloud Cost Optimizer</h1>
+            <p>Smart Cloud Billing Analysis with AI</p>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if error %}<div class="alert error"><i class="fas fa-exclamation-circle"></i>{{ error }}</div>{% endif %}
+        {% if uploaded_file %}<div class="alert success"><i class="fas fa-check-circle"></i>Uploaded: {{ uploaded_file
+            }}</div>{% endif %}
+
+        <div class="upload-box">
+            <h2><i class="fas fa-upload"></i> Upload JSON Report</h2>
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="fileInput" accept=".json" hidden>
+                <label for="fileInput" class="upload-btn"><i class="fas fa-file-import"></i> Choose File</label>
+                <button type="submit" class="upload-btn"><i class="fas fa-chart-line"></i> Analyze</button>
+            </form>
+        </div>
+
+        <div class="sample-format">
+            <pre>{
+    "months": [
+        {
+            "month": "April 2024",
+            "services": [
+                { "name": "EC2", "cost": 100.00 },
+                { "name": "S3", "cost": 60.00 }
+            ]
+        }
+    ]
+}</pre>
+        </div>
+    </div>
+
+    <footer>
+        Background image from your own screenshot.
+    </footer>
+</body>
+
+</html>
